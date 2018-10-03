@@ -2,7 +2,9 @@
 using namespace std;
 // Many number theoretic problems has the data which is bigger than INT_MAX, so use long long int.
 typedef long long int ll;
-//Arrays index starts at 0 if not explained.
+/*
+Arrays index starts at 0 if not explained, all mod below must be prime if not explained
+*/
 /*
 By using GaussElimination(), you can solve the system of linear equations.
 The array mat is the coefficients of every variable in every equation.
@@ -76,7 +78,6 @@ I don't think that using hash table is perfect, it can be wrong if the extreme d
 You can use your hash table instead of STL.
 Two fast multiplication templates is provided, the first is based on Divide and Conquer algorithm, the second is based on distributive law.
 */
-//gg
 map<ll,ll>ht;
 ll mod,val;
 inline ll qmul(ll x,ll y,ll mod)
