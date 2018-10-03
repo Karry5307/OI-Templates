@@ -71,7 +71,9 @@ inline void GaussElimination()
     }
 }
 /*
-By using BSGS,...
+By using BSGS,....
+I don't think that using hash table is perfect, it can be wrong if the extreme data exists,but it's faster than STL.
+You can use your hash table instead of STL.
 Two fast multiplication templates is provided, the first is based on Divide and Conquer algorithm, the second is based on distributive law.
 */
 //gg
@@ -134,10 +136,4 @@ inline ll BSGS(ll base,ll res,ll mod)
         }
     }
     return -1;
-}
-int main()
-{
-    val=read(),mod=read();
-    val=(qmul(9,val,mod)+1)%mod;
-    write(BSGS(10,val,mod));
 }
