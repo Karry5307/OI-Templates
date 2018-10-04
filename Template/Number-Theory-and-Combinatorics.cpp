@@ -1,8 +1,23 @@
 #include<bits/stdc++.h>
 using namespace std;
-// Many number theoretic problems has the data which is bigger than INT_MAX, so use long long int.
+/*
+Many number theoretic problems has the data which is bigger than INT_MAX, so use long long int.
+Arrays index starts at 0 and all mod below must be prime if not explained.
+All math formulas in the comments is written in LaTeX.
+*/
 typedef long long int ll;
-//Arrays index starts at 0 if not explained, all mod below must be prime if not explained
+
+/*
+By using gcd(x,y) and lcm(x,y), you can get the gcd and lcm of two numbers.
+*/
+inline ll gcd(ll x,ll y)
+{
+    return !y?x:gcd(x%y);
+}
+inline ll lcm(ll x,ll y)
+{
+    return x/gcd(x,y)*y;
+}
 /*
 By using GaussElimination(), you can solve the system of linear equations.
 The array mat is the coefficients of every variable in every equation.
@@ -71,10 +86,10 @@ inline void GaussElimination()
     }
 }
 /*
-By using BSGS,....
+By using BSGS(x,y,z), you can get the minimum t of the equation x^t\equiv y\pmod z
 I don't think that using hash table is perfect, it can be wrong if the extreme data exists,but it's faster than STL.
 You can use your hash table instead of STL.
-Two fast multiplication templates is provided, the first is based on Divide and Conquer algorithm, the second is based on distributive law.
+Two fast multiplication templates is provided, the first is based on Divide and Conquer algorithm, and the second is based on distributive law.
 */
 map<ll,ll>ht;
 ll mod,val;
