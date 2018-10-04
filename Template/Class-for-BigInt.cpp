@@ -9,6 +9,10 @@ class BigInt
         ll digit,isNegative;
         BigInt()
         {
+            for(register int i=0;i<4005;i++)
+            {
+                val[i]='0';
+            }
             digit=isNegative=0;
         }
         inline void operator =(ll num)
@@ -46,11 +50,27 @@ inline ostream& operator <<(ostream& out,BigInt x)
 inline BigInt operator +(BigInt x,BigInt y)
 {
     BigInt res;
-    ll up;
+    ll up=0;
     for(register int i=0;i<max(x.digit,y.digit);i++)
     {
         res.val[i]=(x.val[i]-'0'+y.val[i]-'0'+up)%10+'0';
         up=(x.val[i]-'0'+y.val[i]-'0'+up)/10;
+        res.digit++;
+    }
+    if(up)
+    {
+        res.val[res.digit++]=up+'0';
+    }
+    return res;
+}
+inline BigInt mul(BigInt x,ll y)
+{
+    BigInt res;
+    ll up=0;
+    for(register int i=0;i<x.digit;i++)
+    {
+        res.val[i]=((x.val[i]-'0')*y+up)%10+'0';
+        up=((x.val[i]-'0')*y+up)/10;
         res.digit++;
     }
     if(up)
