@@ -88,7 +88,7 @@ inline void GaussElimination()
 /*
 By using BSGS(x,y,z), you can get the minimum t of the equation x^t\equiv y\pmod z
 I don't think that using hash table is perfect, it can be wrong if the extreme data exists,but it's faster than STL.
-You can use your hash table instead of STL.
+You can use your hash table instead of STL, cc_hash_table and gp_hash_table in pb_ds also can replace map.
 Two fast multiplication templates is provided, the first is based on Divide and Conquer algorithm, and the second is based on distributive law.
 */
 map<ll,ll>ht;
