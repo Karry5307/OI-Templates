@@ -4,7 +4,7 @@ typedef int ll;
 /*
 Segment Tree can maintain many information on the interval,such as interval sum, interval maximum value and interval minimum value 
 */
-//x.Maintain the interval sum and support interval addition, interval multplication.
+//x.Maintain interval sum and support interval addition, interval multplication.
 const ll MAXN=2e5+51;
 struct SegmentTree{
     ll l,r,sum,tag,mtag;
@@ -99,3 +99,8 @@ inline ll query(ll l,ll r,ll node)
     }
     return val;
 }
+/*
+Persistent Segment Tree, also named President Tree, can maintain kth minimum value of the interval.
+We sort and discrete the insertion data and create some new node to maintain the history versions, so we choose to create nodes dynamically.
+*/
+//xi.Maintain the kth minimum sum but don't change value.(Static President Tree)
