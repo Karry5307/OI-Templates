@@ -1,28 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef int ll;
-inline ll read()
-{
-    register ll num=0,neg=1;
-    register char ch=getchar();
-    while(!isdigit(ch)&&ch!='-')
-    {
-        ch=getchar();
-    }
-    if(ch=='-')
-    {
-        neg=-1;
-        ch=getchar();
-    }
-    while(isdigit(ch))
-    {
-        num=(num<<3)+(num<<1)+(ch-'0');
-        ch=getchar();
-    }
-    return num*neg;
-}
 /*
-Segment Tree can maintain the interval sum, the interval maximum value and the interval minimum value 
+Segment Tree can maintain many information on the interval,such as interval sum, interval maximum value and interval minimum value 
 */
 //x.Maintain the interval sum and support interval addition, interval multplication.
 const ll MAXN=2e5+51;
