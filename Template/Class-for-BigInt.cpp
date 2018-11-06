@@ -1,81 +1,138 @@
-//This is the template of bigInt.
 #include<bits/stdc++.h>
 using namespace std;
 typedef int ll;
-class BigInt
+const ll MAXN=2e3+51; 
+struct BigInt{
+	ll digit;
+	ll num[MAXN];
+	BigInt()
+	{
+		memset(num,0,sizeof(num));
+	}
+	inline void operator =(ll x)
+	{
+		while(x)
+		{
+			num[digit++]=x%10000,x/=10000;
+		} 
+	}
+	inline void op()
+	{
+		printf("%d",num[digit-1]);
+		for(register int i=digit-2;i>=0;i--)
+		{
+			if(!num[i])
+			{
+				printf("0000");
+				continue;
+			}
+			ll rest=3-(ll)(log10(num[i]));
+			for(register int j=rest;j;j--)
+			{
+				putchar('0');
+			}
+			printf("%d",num[i]);
+		}
+	}
+	inline bool operator >(const BigInt &rhs)const
+	{
+		if(digit!=rhs.digit)
+		{
+			return digit>rhs.digit;
+		}
+		for(register int i=digit-1;i>=0;i--)
+		{
+			if(num[i]!=rhs.num[i])
+			{
+				return num[i]>rhs.num[i];
+			}
+		}
+		return 0;
+	}
+}; 
+struct Minister{
+	ll l,r;
+	inline bool operator <(const Minister &rhs)const
+	{
+		return l*r<rhs.l*rhs.r;
+	}
+}; 
+BigInt prefix,temp,res;
+Minister minister[MAXN];
+ll cnt;
+inline ll read()
 {
-    public:
-        char val[4005];
-        ll digit,isNegative;
-        BigInt()
-        {
-            for(register int i=0;i<4005;i++)
-            {
-                val[i]='0';
-            }
-            digit=isNegative=0;
-        }
-        inline void operator =(ll num)
-        {
-            while(num)
-            {
-                val[digit++]=num%10+'0';
-                num/=10;
-            }
-        }    
-        inline void operator =(BigInt num)
-        {
-            digit=num.digit;
-            for(register int i=0;i<digit;i++)
-            {
-                val[i]=num.val[i];
-            }
-        }
-        inline void operator =(string num)
-        {
-            digit=num.length();
-            for(register int i=num.length()-1;i>=0;i--)
-            {
-                val[num.length()-1-i]=num[i];
-            }
-        }
-};
-inline ostream& operator <<(ostream& out,BigInt x)
-{
-    for(register int i=x.digit-1;i>=0;i--)
+    register ll num=0,neg=1;
+    register char ch=getchar();
+    while(!isdigit(ch)&&ch!='-')
     {
-        out<<x.val[i];
+        ch=getchar();
     }
+    if(ch=='-')
+    {
+        neg=-1;
+        ch=getchar();
+    }
+    while(isdigit(ch))
+    {
+        num=(num<<3)+(num<<1)+(ch-'0');
+        ch=getchar();
+    }
+    return num*neg;
+}
+template<class T>
+inline T Max(T x,T y)
+{
+	return x>y?x:y;
 }
 inline BigInt operator +(BigInt x,BigInt y)
 {
-    BigInt res;
-    ll up=0;
-    for(register int i=0;i<max(x.digit,y.digit);i++)
-    {
-        res.val[i]=(x.val[i]-'0'+y.val[i]-'0'+up)%10+'0';
-        up=(x.val[i]-'0'+y.val[i]-'0'+up)/10;
-        res.digit++;
-    }
-    if(up)
-    {
-        res.val[res.digit++]=up+'0';
-    }
-    return res;
+	BigInt res;
+	ll carry=0;
+	res.digit=max(x.digit,y.digit)+1;
+	for(register int i=0;i<=res.digit;i++)
+	{
+		res.num[i]=x.num[i]+y.num[i]+carry;
+		carry=res.num[i]/10000,res.num[i]%=10000;
+	}
+	if(!res.num[res.digit-1])
+	{
+		res.digit--;
+	}
+	return res;
 }
-inline BigInt mul(BigInt x,ll y)
+inline BigInt operator *(BigInt x,ll y)
 {
-    BigInt res;
-    ll up=0;
-    for(register int i=0;i<x.digit;i++)
-    {
-        res.val[i]=((x.val[i]-'0')*y+up)%10+'0';
-        up=((x.val[i]-'0')*y+up)/10;
-        res.digit++;
-    }
-    if(up)
-    {
-        res.val[res.digit++]=up+'0';
-    }
-    return res;
+	BigInt res;
+	ll carry=0;
+	res.digit=x.digit+1;
+	for(register int i=0;i<=res.digit;i++)
+	{
+		res.num[i]=x.num[i]*y+carry;
+		carry=res.num[i]/10000,res.num[i]%=10000;
+	}
+	if(!res.num[res.digit-1])
+	{
+		res.digit--;
+	}
+	return res;
+}
+inline BigInt operator /(BigInt x,ll y)
+{
+	BigInt res;
+	ll cur=0;
+	res.digit=x.digit;
+	for(register int i=x.digit-1;i>=0;i--)
+	{
+		cur=cur*10000+x.num[i];
+		if(cur>=y)
+		{
+			res.num[i]=cur/y,cur%=y;
+		}
+	}
+	if(!res.num[res.digit-1])
+	{
+		res.digit--;
+	}
+	return res;
 }
