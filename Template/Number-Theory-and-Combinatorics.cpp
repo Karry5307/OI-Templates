@@ -151,3 +151,23 @@ inline ll BSGS(ll base,ll res,ll mod)
     }
     return -1;
 }
+/*
+Chinese Remainder Theorem.
+*/
+inline ll excrt(ll cnt)
+{
+	ll x,y,z,xx,yy,zz,xgzc,m=md[0],res=rs[0];
+	for(register int i=1;i<cnt;i++)
+	{
+		xx=m,yy=md[i],zz=(rs[i]-res%yy+yy)%yy;
+		exgcd(xx,yy,x,y),xgzc=gcd(xx,yy),z=yy/xgzc;
+		if(zz%xgzc)
+		{
+			return -1;
+		}
+		x=(li)x*(zz/xgzc)%z,res+=x*m,m*=z;
+		res=(res%m+m)%m;
+	}
+	return (res%m+m)%m;
+	 
+}
